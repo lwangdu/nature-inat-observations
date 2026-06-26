@@ -16,7 +16,16 @@ $show_scientific_name = ! empty( $observation['scientific_name'] ) && 0 !== strc
 <article class="ucnature-inat-card" aria-label="<?php echo esc_attr( $observation['common_name'] ); ?>">
 	<div class="ucnature-inat-card__media">
 		<?php if ( $observation['photo_url'] ) : ?>
-			<img src="<?php echo esc_url( $observation['photo_url'] ); ?>" alt="<?php echo esc_attr( $observation['photo_alt'] ); ?>" loading="lazy" decoding="async">
+			<?php if ( ! empty( $observation['url'] ) ) : ?>
+				<a class="ucnature-inat-card__media-link" href="<?php echo esc_url( $observation['url'] ); ?>"<?php echo $open_links_in_new_tab ? ' target="_blank" rel="noopener noreferrer"' : ''; ?>>
+					<img src="<?php echo esc_url( $observation['photo_url'] ); ?>" alt="<?php echo esc_attr( $observation['photo_alt'] ); ?>" loading="lazy" decoding="async">
+					<?php if ( $open_links_in_new_tab ) : ?>
+						<span class="screen-reader-text"> <?php esc_html_e( 'opens in a new tab', 'ucnature-inat-observations' ); ?></span>
+					<?php endif; ?>
+				</a>
+			<?php else : ?>
+				<img src="<?php echo esc_url( $observation['photo_url'] ); ?>" alt="<?php echo esc_attr( $observation['photo_alt'] ); ?>" loading="lazy" decoding="async">
+			<?php endif; ?>
 		<?php else : ?>
 			<span class="ucnature-inat-card__placeholder"><?php esc_html_e( 'No photo', 'ucnature-inat-observations' ); ?></span>
 		<?php endif; ?>
