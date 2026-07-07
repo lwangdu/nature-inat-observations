@@ -296,11 +296,11 @@ final class Nature_INat_Observations_Admin {
 	 * @param int $seconds Time limit in seconds.
 	 */
 	private function extend_csv_export_time_limit( $seconds = 60 ) {
-		if ( ! function_exists( 'set_time_limit' ) ) {
+		if ( ! function_exists( 'set_time_limit' ) ) { // phpcs:ignore Squiz.PHP.DiscouragedFunctions.Discouraged
 			return;
 		}
 
-		set_time_limit( max( 1, absint( $seconds ) ) );
+		set_time_limit( max( 1, absint( $seconds ) ) ); // phpcs:ignore Squiz.PHP.DiscouragedFunctions.Discouraged
 	}
 
 	/**
