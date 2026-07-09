@@ -336,20 +336,48 @@ final class Nature_Observations_Admin {
 	private function write_csv_error_row( $output, $error ) {
 		fputcsv(
 			$output,
-			array(
-				'export_error',
-				$error->get_error_message(),
-				'',
-				'',
-				'',
-				'',
-				'',
-				'',
-				'',
-				'',
-				'',
+			$this->csv_safe_row(
+				array(
+					'export_error',
+					$error->get_error_message(),
+					'',
+					'',
+					'',
+					'',
+					'',
+					'',
+					'',
+					'',
+					'',
+				)
 			)
 		);
+	}
+
+	/**
+	 * Escape CSV cells that spreadsheet apps may interpret as formulas.
+	 *
+	 * @param array $row CSV row values.
+	 * @return array
+	 */
+	private function csv_safe_row( $row ) {
+		return array_map( array( $this, 'csv_safe_cell' ), $row );
+	}
+
+	/**
+	 * Escape one CSV cell for spreadsheet formula injection.
+	 *
+	 * @param mixed $value CSV cell value.
+	 * @return string
+	 */
+	private function csv_safe_cell( $value ) {
+		$value = (string) $value;
+
+		if ( '' !== $value && preg_match( '/^[=+\-@\t\r]/', $value ) ) {
+			return '\'' . $value;
+		}
+
+		return $value;
 	}
 
 	/**
@@ -361,18 +389,20 @@ final class Nature_Observations_Admin {
 	private function write_csv_observation_row( $output, $observation ) {
 		fputcsv(
 			$output,
-			array(
-				$observation['id'] ?? '',
-				$observation['common_name'] ?? '',
-				$observation['scientific_name'] ?? '',
-				$observation['taxon_group'] ?? '',
-				$observation['observed_on'] ?? '',
-				$observation['observer'] ?? '',
-				$observation['quality_grade'] ?? '',
-				$observation['latitude'] ?? '',
-				$observation['longitude'] ?? '',
-				$observation['url'] ?? '',
-				$observation['photo_url'] ?? '',
+			$this->csv_safe_row(
+				array(
+					$observation['id'] ?? '',
+					$observation['common_name'] ?? '',
+					$observation['scientific_name'] ?? '',
+					$observation['taxon_group'] ?? '',
+					$observation['observed_on'] ?? '',
+					$observation['observer'] ?? '',
+					$observation['quality_grade'] ?? '',
+					$observation['latitude'] ?? '',
+					$observation['longitude'] ?? '',
+					$observation['url'] ?? '',
+					$observation['photo_url'] ?? '',
+				)
 			)
 		);
 	}
