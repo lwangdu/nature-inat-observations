@@ -33,7 +33,7 @@
 		var html = '';
 
 		if ( observation.photo_url ) {
-			html += '<img class="nature-inat-map__popup-image" src="' + escapeAttribute( observation.photo_url ) + '" alt="">';
+			html += '<img class="nature-observations-map__popup-image" src="' + escapeAttribute( observation.photo_url ) + '" alt="">';
 		}
 
 		html += '<strong>' + escapeHtml( observation.common_name ) + '</strong>';
@@ -54,7 +54,7 @@
 	}
 
 	function initMap( wrapper ) {
-		var canvas = wrapper.querySelector( '.nature-inat-map__canvas' );
+		var canvas = wrapper.querySelector( '.nature-observations-map__canvas' );
 		var observations;
 		var boundary;
 		var map;
@@ -129,7 +129,7 @@
 			markerById[ observation.id ] = marker;
 		} );
 
-		wrapper.addEventListener( 'nature-inat-observation-select', function ( event ) {
+		wrapper.addEventListener( 'nature-observations-observation-select', function ( event ) {
 			var marker = markerById[ event.detail.id ];
 
 			if ( ! marker ) {
@@ -169,11 +169,11 @@
 		var scope = root || document;
 		var wrappers = [];
 
-		if ( scope.matches && scope.matches( '.nature-inat-map[data-observations]' ) ) {
+		if ( scope.matches && scope.matches( '.nature-observations-map[data-observations]' ) ) {
 			wrappers.push( scope );
 		}
 
-		scope.querySelectorAll( '.nature-inat-map[data-observations]' ).forEach( function ( wrapper ) {
+		scope.querySelectorAll( '.nature-observations-map[data-observations]' ).forEach( function ( wrapper ) {
 			wrappers.push( wrapper );
 		} );
 
@@ -182,7 +182,7 @@
 		} );
 	}
 
-	window.natureINatInitMaps = init;
+	window.natureObservationsInitMaps = init;
 
 	if ( document.readyState === 'loading' ) {
 		document.addEventListener( 'DOMContentLoaded', function () {

@@ -50,7 +50,7 @@ function selectObservation() {
 
 	mapStore.state.activeObservationId = observationId;
 	element.ref.dispatchEvent(
-		new CustomEvent( 'nature-inat-observation-select', {
+		new CustomEvent( 'nature-observations-observation-select', {
 			bubbles: true,
 			detail: {
 				id: observationId
@@ -85,7 +85,7 @@ function prefetchPaginationPage() {
 	document.head.appendChild( link );
 }
 
-mapStore = store( 'nature-inat/observations-map', {
+mapStore = store( 'nature-observations/observations-map', {
 	state: {
 		activeObservationId: 0,
 		get isPreviousDisabled() {
@@ -144,7 +144,7 @@ mapStore = store( 'nature-inat/observations-map', {
 	}
 } );
 
-store( 'nature-inat/observations', {
+store( 'nature-observations/observations', {
 	state: {
 		get isPaginationLoading() {
 			return Boolean( getContext().isLoading );

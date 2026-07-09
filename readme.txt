@@ -1,4 +1,4 @@
-=== Nature iNaturalist Observations ===
+=== Nature Observations ===
 Contributors: lobsangw
 Tags: inaturalist, observations, biodiversity, maps, block
 Requires at least: 6.5
@@ -8,11 +8,11 @@ Stable tag: 0.2.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Display cached iNaturalist observations in WordPress with block editor support, observation cards, filters, stats, pagination, and a map view.
+Display cached nature observations in WordPress with block editor support, observation cards, filters, stats, pagination, and a map view.
 
 == Description ==
 
-Nature iNaturalist Observations displays iNaturalist observations on WordPress sites. It provides dynamic blocks for an observation grid and a compact observation map.
+Nature Observations displays iNaturalist observations on WordPress sites. It provides dynamic blocks for an observation grid and a compact observation map.
 
 Features include:
 
@@ -44,7 +44,7 @@ This plugin bundles Leaflet 1.9.4 for the interactive map. Leaflet is licensed u
 
 1. Upload the plugin folder to the /wp-content/plugins/ directory, or install it through the WordPress Plugins screen.
 2. Activate the plugin through the Plugins screen in WordPress.
-3. Go to Settings > iNaturalist Observations to configure default source settings.
+3. Go to Settings > Nature Observations to configure default source settings.
 4. Add the iNaturalist Observations block or iNaturalist Observations Map block to a page.
 
 The plugin creates draft starter iNaturalist Observations and Map of Observations pages on activation if those pages do not already exist. Review and publish those pages when ready.

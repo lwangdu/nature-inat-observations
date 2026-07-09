@@ -10,7 +10,7 @@
 	var ToggleControl = components.ToggleControl;
 	var ServerSideRender = serverSideRender;
 	var __ = i18n.__;
-	var settings = window.natureINatObservations || {};
+	var settings = window.natureObservations || {};
 	var defaultProjectId = settings.defaultProjectId || 0;
 	var defaultProjectSlug = settings.defaultProjectSlug || '';
 	var defaultPerPage = settings.defaultPerPage || 100;
@@ -18,8 +18,8 @@
 	var openLinksInNewTab = settings.openLinksInNewTab !== false;
 
 	function initPreviewMaps( root ) {
-		if ( window.natureINatInitMaps ) {
-			window.natureINatInitMaps( root );
+		if ( window.natureObservationsInitMaps ) {
+			window.natureObservationsInitMaps( root );
 		}
 	}
 
@@ -63,8 +63,8 @@
 		);
 	}
 
-	blocks.registerBlockType( 'nature-inat/observations', {
-		title: __( 'iNaturalist Observations', 'nature-inat-observations' ),
+	blocks.registerBlockType( 'nature-observations/observations', {
+		title: __( 'iNaturalist Observations', 'nature-observations' ),
 		icon: 'visibility',
 		category: 'widgets',
 		attributes: {
@@ -104,16 +104,16 @@
 					{},
 					el(
 						PanelBody,
-						{ title: __( 'iNaturalist Source', 'nature-inat-observations' ) },
+						{ title: __( 'iNaturalist Source', 'nature-observations' ) },
 						el( TextControl, {
-							label: __( 'Project slug', 'nature-inat-observations' ),
+							label: __( 'Project slug', 'nature-observations' ),
 							value: attributes.projectSlug,
 							onChange: function ( value ) {
 								props.setAttributes( { projectSlug: value } );
 							}
 						} ),
 						el( TextControl, {
-							label: __( 'Project ID fallback', 'nature-inat-observations' ),
+							label: __( 'Project ID fallback', 'nature-observations' ),
 							type: 'number',
 							value: attributes.projectId,
 							onChange: function ( value ) {
@@ -121,7 +121,7 @@
 							}
 						} ),
 						el( TextControl, {
-							label: __( 'Place ID', 'nature-inat-observations' ),
+							label: __( 'Place ID', 'nature-observations' ),
 							type: 'number',
 							value: attributes.placeId,
 							onChange: function ( value ) {
@@ -129,14 +129,14 @@
 							}
 						} ),
 						el( TextControl, {
-							label: __( 'User ID or login', 'nature-inat-observations' ),
+							label: __( 'User ID or login', 'nature-observations' ),
 							value: attributes.userId,
 							onChange: function ( value ) {
 								props.setAttributes( { userId: value } );
 							}
 						} ),
 						el( TextControl, {
-							label: __( 'Observations per page', 'nature-inat-observations' ),
+							label: __( 'Observations per page', 'nature-observations' ),
 							type: 'number',
 							value: attributes.perPage,
 							onChange: function ( value ) {
@@ -145,7 +145,7 @@
 							}
 						} ),
 						el( ToggleControl, {
-							label: __( 'Open iNaturalist links in a new tab', 'nature-inat-observations' ),
+							label: __( 'Open iNaturalist links in a new tab', 'nature-observations' ),
 							checked: attributes.openLinksInNewTab,
 							onChange: function ( value ) {
 								props.setAttributes( { openLinksInNewTab: value } );
@@ -154,21 +154,21 @@
 					)
 				),
 				el( ServerSideRender, {
-					block: 'nature-inat/observations',
+					block: 'nature-observations/observations',
 					attributes: attributes,
 					LoadingResponsePlaceholder: function () {
 						return el(
 							Placeholder,
-							{ label: __( 'iNaturalist Observations', 'nature-inat-observations' ) },
+							{ label: __( 'iNaturalist Observations', 'nature-observations' ) },
 							el( Spinner ),
-							el( 'span', {}, __( 'Loading observations...', 'nature-inat-observations' ) )
+							el( 'span', {}, __( 'Loading observations...', 'nature-observations' ) )
 						);
 					},
 					ErrorResponsePlaceholder: function () {
 						return el(
 							Placeholder,
-							{ label: __( 'iNaturalist Observations', 'nature-inat-observations' ) },
-							el( 'span', {}, __( 'Unable to preview observations. Check the source settings and try again.', 'nature-inat-observations' ) )
+							{ label: __( 'iNaturalist Observations', 'nature-observations' ) },
+							el( 'span', {}, __( 'Unable to preview observations. Check the source settings and try again.', 'nature-observations' ) )
 						);
 					}
 				} )
@@ -179,8 +179,8 @@
 		}
 	} );
 
-	blocks.registerBlockType( 'nature-inat/observations-map', {
-		title: __( 'iNaturalist Observations Map', 'nature-inat-observations' ),
+	blocks.registerBlockType( 'nature-observations/observations-map', {
+		title: __( 'iNaturalist Observations Map', 'nature-observations' ),
 		icon: 'location-alt',
 		category: 'widgets',
 		attributes: {
@@ -220,16 +220,16 @@
 					{},
 					el(
 						PanelBody,
-						{ title: __( 'iNaturalist Map Source', 'nature-inat-observations' ) },
+						{ title: __( 'iNaturalist Map Source', 'nature-observations' ) },
 						el( TextControl, {
-							label: __( 'Project slug', 'nature-inat-observations' ),
+							label: __( 'Project slug', 'nature-observations' ),
 							value: attributes.projectSlug,
 							onChange: function ( value ) {
 								props.setAttributes( { projectSlug: value } );
 							}
 						} ),
 						el( TextControl, {
-							label: __( 'Project ID fallback', 'nature-inat-observations' ),
+							label: __( 'Project ID fallback', 'nature-observations' ),
 							type: 'number',
 							value: attributes.projectId,
 							onChange: function ( value ) {
@@ -237,7 +237,7 @@
 							}
 						} ),
 						el( TextControl, {
-							label: __( 'Place ID', 'nature-inat-observations' ),
+							label: __( 'Place ID', 'nature-observations' ),
 							type: 'number',
 							value: attributes.placeId,
 							onChange: function ( value ) {
@@ -245,14 +245,14 @@
 							}
 						} ),
 						el( TextControl, {
-							label: __( 'User ID or login', 'nature-inat-observations' ),
+							label: __( 'User ID or login', 'nature-observations' ),
 							value: attributes.userId,
 							onChange: function ( value ) {
 								props.setAttributes( { userId: value } );
 							}
 						} ),
 						el( TextControl, {
-							label: __( 'Mapped observations', 'nature-inat-observations' ),
+							label: __( 'Mapped observations', 'nature-observations' ),
 							type: 'number',
 							value: attributes.perPage,
 							onChange: function ( value ) {
@@ -261,7 +261,7 @@
 							}
 						} ),
 						el( ToggleControl, {
-							label: __( 'Open iNaturalist links in a new tab', 'nature-inat-observations' ),
+							label: __( 'Open iNaturalist links in a new tab', 'nature-observations' ),
 							checked: attributes.openLinksInNewTab,
 							onChange: function ( value ) {
 								props.setAttributes( { openLinksInNewTab: value } );
@@ -270,21 +270,21 @@
 					)
 				),
 				el( MapServerSidePreview, {
-					block: 'nature-inat/observations-map',
+					block: 'nature-observations/observations-map',
 					attributes: attributes,
 					LoadingResponsePlaceholder: function () {
 						return el(
 							Placeholder,
-							{ label: __( 'iNaturalist Observations Map', 'nature-inat-observations' ) },
+							{ label: __( 'iNaturalist Observations Map', 'nature-observations' ) },
 							el( Spinner ),
-							el( 'span', {}, __( 'Loading observation map...', 'nature-inat-observations' ) )
+							el( 'span', {}, __( 'Loading observation map...', 'nature-observations' ) )
 						);
 					},
 					ErrorResponsePlaceholder: function () {
 						return el(
 							Placeholder,
-							{ label: __( 'iNaturalist Observations Map', 'nature-inat-observations' ) },
-							el( 'span', {}, __( 'Unable to preview the map. Check the source settings and try again.', 'nature-inat-observations' ) )
+							{ label: __( 'iNaturalist Observations Map', 'nature-observations' ) },
+							el( 'span', {}, __( 'Unable to preview the map. Check the source settings and try again.', 'nature-observations' ) )
 						);
 					}
 				} )

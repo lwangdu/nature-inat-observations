@@ -1,14 +1,14 @@
 {
     "$schema": "https://schemas.wp.org/trunk/block.json",
     "apiVersion": 3,
-    "name": "nature-inat/observations",
+    "name": "nature-observations/observations",
     "title": "iNaturalist Observations",
     "category": "widgets",
     "icon": "visibility",
     "description": "Display cached iNaturalist observations with filters, stats, cards, and pagination.",
-    "textdomain": "nature-inat-observations",
-    "editorScript": "nature-inat-observations-block",
-    "style": "nature-inat-observations",
+    "textdomain": "nature-observations",
+    "editorScript": "nature-observations-block",
+    "style": "nature-observations",
     "attributes": {
         "projectId": {
             "type": "number"
