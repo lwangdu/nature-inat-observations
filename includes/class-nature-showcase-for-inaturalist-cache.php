@@ -2,7 +2,7 @@
 /**
  * API cache and normalizers for iNaturalist.
  *
- * @package Nature_Observations
+ * @package Nature_Showcase_For_INaturalist
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Fetches, normalizes, and caches iNaturalist API responses.
  */
-final class Nature_Observations_Cache {
+final class Nature_Showcase_For_INaturalist_Cache {
 	const API_BASE               = 'https://api.inaturalist.org/v1/observations';
 	const PROJECTS_API_BASE      = 'https://api.inaturalist.org/v1/projects';
 	const PLACES_API_BASE        = 'https://api.inaturalist.org/v1/places';
@@ -21,7 +21,7 @@ final class Nature_Observations_Cache {
 	const LOCK_TTL               = 60;
 	const ERROR_TTL              = 120;
 	const STALE_TTL              = WEEK_IN_SECONDS;
-	const WARM_SOURCES_CACHE_KEY = 'nature_observations_warm_sources_v1';
+	const WARM_SOURCES_CACHE_KEY = 'nature_showcase_for_inaturalist_warm_sources_v1';
 
 	/**
 	 * Get available observation group filters.
@@ -30,12 +30,12 @@ final class Nature_Observations_Cache {
 	 */
 	public static function group_options() {
 		return array(
-			''        => __( 'All', 'nature-observations' ),
-			'birds'   => __( 'Birds', 'nature-observations' ),
-			'mammals' => __( 'Mammals', 'nature-observations' ),
-			'plants'  => __( 'Plants', 'nature-observations' ),
-			'insects' => __( 'Insects', 'nature-observations' ),
-			'fungi'   => __( 'Fungi', 'nature-observations' ),
+			''        => __( 'All', 'nature-showcase-for-inaturalist' ),
+			'birds'   => __( 'Birds', 'nature-showcase-for-inaturalist' ),
+			'mammals' => __( 'Mammals', 'nature-showcase-for-inaturalist' ),
+			'plants'  => __( 'Plants', 'nature-showcase-for-inaturalist' ),
+			'insects' => __( 'Insects', 'nature-showcase-for-inaturalist' ),
+			'fungi'   => __( 'Fungi', 'nature-showcase-for-inaturalist' ),
 		);
 	}
 
@@ -73,7 +73,7 @@ final class Nature_Observations_Cache {
 	 * @return array|WP_Error
 	 */
 	public static function get_observations( $args = array() ) {
-		$options = Nature_Observations_Admin::get_options();
+		$options = Nature_Showcase_For_INaturalist_Admin::get_options();
 		$args    = self::normalize_query_args( $args, $options );
 		$args    = self::resolve_project_slug_arg( $args );
 
@@ -81,7 +81,7 @@ final class Nature_Observations_Cache {
 			return $args;
 		}
 
-		$cache_key = 'nature_observations_v4_' . md5( wp_json_encode( $args ) );
+		$cache_key = 'nature_showcase_for_inaturalist_v4_' . md5( wp_json_encode( $args ) );
 
 		return self::cached_result(
 			$cache_key,
@@ -108,7 +108,7 @@ final class Nature_Observations_Cache {
 				}
 
 				if ( ! isset( $data['results'] ) || ! is_array( $data['results'] ) ) {
-					return new WP_Error( 'nature_observations_bad_response', __( 'The iNaturalist response was not readable.', 'nature-observations' ) );
+					return new WP_Error( 'nature_showcase_for_inaturalist_bad_response', __( 'The iNaturalist response was not readable.', 'nature-showcase-for-inaturalist' ) );
 				}
 
 				return array(
@@ -128,7 +128,7 @@ final class Nature_Observations_Cache {
 	 * @return array|WP_Error
 	 */
 	public static function get_source_stats( $args = array() ) {
-		$options = Nature_Observations_Admin::get_options();
+		$options = Nature_Showcase_For_INaturalist_Admin::get_options();
 		$args    = self::normalize_query_args( $args, $options );
 		$args    = self::resolve_project_slug_arg( $args );
 
@@ -136,7 +136,7 @@ final class Nature_Observations_Cache {
 			return $args;
 		}
 
-		$cache_key = 'nature_observations_stats_v2_' . md5( wp_json_encode( $args ) );
+		$cache_key = 'nature_showcase_for_inaturalist_stats_v2_' . md5( wp_json_encode( $args ) );
 
 		return self::cached_result(
 			$cache_key,
@@ -188,14 +188,14 @@ final class Nature_Observations_Cache {
 	 * @return array|WP_Error
 	 */
 	public static function get_source_boundary( $args = array() ) {
-		$options = Nature_Observations_Admin::get_options();
+		$options = Nature_Showcase_For_INaturalist_Admin::get_options();
 		$args    = self::normalize_query_args( $args, $options );
 
 		if ( is_wp_error( $args ) ) {
 			return $args;
 		}
 
-		$cache_key = 'nature_observations_boundary_v1_' . md5( wp_json_encode( $args ) );
+		$cache_key = 'nature_showcase_for_inaturalist_boundary_v1_' . md5( wp_json_encode( $args ) );
 
 		return self::cached_result(
 			$cache_key,
@@ -207,7 +207,7 @@ final class Nature_Observations_Cache {
 				}
 
 				if ( ! $place_id ) {
-					return new WP_Error( 'nature_observations_boundary_missing', __( 'No iNaturalist place boundary was found for this source.', 'nature-observations' ) );
+					return new WP_Error( 'nature_showcase_for_inaturalist_boundary_missing', __( 'No iNaturalist place boundary was found for this source.', 'nature-showcase-for-inaturalist' ) );
 				}
 
 				$place = self::place_from_id( $place_id );
@@ -221,7 +221,7 @@ final class Nature_Observations_Cache {
 				}
 
 				if ( empty( $geometry ) || ! is_array( $geometry ) ) {
-					return new WP_Error( 'nature_observations_boundary_unavailable', __( 'The iNaturalist place boundary was not available.', 'nature-observations' ) );
+					return new WP_Error( 'nature_showcase_for_inaturalist_boundary_unavailable', __( 'The iNaturalist place boundary was not available.', 'nature-showcase-for-inaturalist' ) );
 				}
 
 				return array(
@@ -249,7 +249,7 @@ final class Nature_Observations_Cache {
 			++$deleted;
 		}
 
-		delete_option( NATURE_OBSERVATIONS_CACHE_KEYS_OPTION );
+		delete_option( NATURE_SHOWCASE_FOR_INATURALIST_CACHE_KEYS_OPTION );
 
 		return $deleted;
 	}
@@ -317,7 +317,7 @@ final class Nature_Observations_Cache {
 			return $cached;
 		}
 
-		$options    = Nature_Observations_Admin::get_options();
+		$options    = Nature_Showcase_For_INaturalist_Admin::get_options();
 		$sources    = array(
 			self::warm_source_args(
 				array(
@@ -334,6 +334,8 @@ final class Nature_Observations_Cache {
 
 			$post_type_placeholders = implode( ', ', array_fill( 0, count( $post_types ), '%s' ) );
 			$source_like_terms      = array(
+				'%wp:nature-showcase-for-inaturalist/observations%',
+				'%wp:nature-showcase-for-inaturalist/observations-map%',
 				'%wp:nature-observations/observations%',
 				'%wp:nature-observations/observations-map%',
 				'%wp:nature-inat/observations%',
@@ -413,7 +415,7 @@ final class Nature_Observations_Cache {
 		$sources = array();
 
 		foreach ( $blocks as $block ) {
-			if ( in_array( $block['blockName'] ?? '', array( 'nature-observations/observations', 'nature-observations/observations-map', 'nature-inat/observations', 'nature-inat/observations-map' ), true ) ) {
+			if ( in_array( $block['blockName'] ?? '', array( 'nature-showcase-for-inaturalist/observations', 'nature-showcase-for-inaturalist/observations-map', 'nature-observations/observations', 'nature-observations/observations-map', 'nature-inat/observations', 'nature-inat/observations-map' ), true ) ) {
 				$attrs     = is_array( $block['attrs'] ?? null ) ? $block['attrs'] : array();
 				$sources[] = self::warm_source_args(
 					array(
@@ -511,7 +513,7 @@ final class Nature_Observations_Cache {
 		$observer        = sanitize_text_field( $user['name'] ?? '' );
 
 		if ( '' === $observer ) {
-			$observer = sanitize_text_field( $user['login'] ?? __( 'Unknown observer', 'nature-observations' ) );
+			$observer = sanitize_text_field( $user['login'] ?? __( 'Unknown observer', 'nature-showcase-for-inaturalist' ) );
 		}
 
 		if ( '' === $common_name ) {
@@ -519,7 +521,7 @@ final class Nature_Observations_Cache {
 		}
 
 		if ( '' === $common_name ) {
-			$common_name = __( 'Unknown species', 'nature-observations' );
+			$common_name = __( 'Unknown species', 'nature-showcase-for-inaturalist' );
 		}
 
 		return array(
@@ -572,7 +574,7 @@ final class Nature_Observations_Cache {
 		);
 
 		if ( ! $normalized['project_id'] && '' === $normalized['project_slug'] && ! $normalized['place_id'] && '' === $normalized['user_id'] ) {
-			return new WP_Error( 'nature_observations_source_missing', __( 'Please configure an iNaturalist source for this block.', 'nature-observations' ) );
+			return new WP_Error( 'nature_showcase_for_inaturalist_source_missing', __( 'Please configure an iNaturalist source for this block.', 'nature-showcase-for-inaturalist' ) );
 		}
 
 		return $normalized;
@@ -628,7 +630,7 @@ final class Nature_Observations_Cache {
 	 * @return array|WP_Error
 	 */
 	private static function project_from_slug( $project_slug ) {
-		$cache_key = 'nature_observations_project_slug_' . md5( $project_slug );
+		$cache_key = 'nature_showcase_for_inaturalist_project_slug_' . md5( $project_slug );
 
 		return self::cached_result(
 			$cache_key,
@@ -642,8 +644,8 @@ final class Nature_Observations_Cache {
 				$project = $data['results'][0] ?? array();
 				if ( empty( $project['id'] ) ) {
 					return new WP_Error(
-						'nature_observations_project_not_found',
-						__( 'The iNaturalist project slug was not found.', 'nature-observations' )
+						'nature_showcase_for_inaturalist_project_not_found',
+						__( 'The iNaturalist project slug was not found.', 'nature-showcase-for-inaturalist' )
 					);
 				}
 
@@ -659,7 +661,7 @@ final class Nature_Observations_Cache {
 	 * @return array|WP_Error
 	 */
 	private static function project_from_id( $project_id ) {
-		$cache_key = 'nature_observations_project_id_' . absint( $project_id );
+		$cache_key = 'nature_showcase_for_inaturalist_project_id_' . absint( $project_id );
 
 		return self::cached_result(
 			$cache_key,
@@ -673,8 +675,8 @@ final class Nature_Observations_Cache {
 				$project = $data['results'][0] ?? array();
 				if ( empty( $project['id'] ) ) {
 					return new WP_Error(
-						'nature_observations_project_not_found',
-						__( 'The iNaturalist project was not found.', 'nature-observations' )
+						'nature_showcase_for_inaturalist_project_not_found',
+						__( 'The iNaturalist project was not found.', 'nature-showcase-for-inaturalist' )
 					);
 				}
 
@@ -690,7 +692,7 @@ final class Nature_Observations_Cache {
 	 * @return array|WP_Error
 	 */
 	private static function place_from_id( $place_id ) {
-		$cache_key = 'nature_observations_place_' . absint( $place_id );
+		$cache_key = 'nature_showcase_for_inaturalist_place_' . absint( $place_id );
 
 		return self::cached_result(
 			$cache_key,
@@ -704,8 +706,8 @@ final class Nature_Observations_Cache {
 				$place = $data['results'][0] ?? array();
 				if ( empty( $place['id'] ) ) {
 					return new WP_Error(
-						'nature_observations_place_not_found',
-						__( 'The iNaturalist place was not found.', 'nature-observations' )
+						'nature_showcase_for_inaturalist_place_not_found',
+						__( 'The iNaturalist place was not found.', 'nature-showcase-for-inaturalist' )
 					);
 				}
 
@@ -779,7 +781,7 @@ final class Nature_Observations_Cache {
 
 		$lock_key = self::acquire_cache_lock( $cache_key );
 		if ( is_wp_error( $lock_key ) ) {
-			if ( 'nature_observations_cache_filled' === $lock_key->get_error_code() ) {
+			if ( 'nature_showcase_for_inaturalist_cache_filled' === $lock_key->get_error_code() ) {
 				return $lock_key->get_error_data();
 			}
 
@@ -789,7 +791,7 @@ final class Nature_Observations_Cache {
 				return $stale;
 			}
 
-			return new WP_Error( 'nature_observations_temporarily_unavailable', __( 'Observation data is temporarily unavailable. Please try again soon.', 'nature-observations' ) );
+			return new WP_Error( 'nature_showcase_for_inaturalist_temporarily_unavailable', __( 'Observation data is temporarily unavailable. Please try again soon.', 'nature-showcase-for-inaturalist' ) );
 		}
 
 		try {
@@ -820,7 +822,7 @@ final class Nature_Observations_Cache {
 	 * @return string|WP_Error
 	 */
 	private static function acquire_cache_lock( $cache_key ) {
-		$lock_key = 'nature_observations_lock_' . md5( $cache_key );
+		$lock_key = 'nature_showcase_for_inaturalist_lock_' . md5( $cache_key );
 
 		for ( $attempt = 0; $attempt < 3; $attempt++ ) {
 			if ( false === get_transient( $lock_key ) ) {
@@ -833,11 +835,11 @@ final class Nature_Observations_Cache {
 
 			$cached = get_transient( $cache_key );
 			if ( false !== $cached ) {
-				return new WP_Error( 'nature_observations_cache_filled', '', $cached );
+				return new WP_Error( 'nature_showcase_for_inaturalist_cache_filled', '', $cached );
 			}
 		}
 
-		return new WP_Error( 'nature_observations_cache_busy', __( 'The iNaturalist cache is refreshing.', 'nature-observations' ) );
+		return new WP_Error( 'nature_showcase_for_inaturalist_cache_busy', __( 'The iNaturalist cache is refreshing.', 'nature-showcase-for-inaturalist' ) );
 	}
 
 	/**
@@ -862,7 +864,7 @@ final class Nature_Observations_Cache {
 
 		if ( ! in_array( $key, $keys, true ) ) {
 			$keys[] = $key;
-			update_option( NATURE_OBSERVATIONS_CACHE_KEYS_OPTION, array_slice( $keys, -500 ), false );
+			update_option( NATURE_SHOWCASE_FOR_INATURALIST_CACHE_KEYS_OPTION, array_slice( $keys, -500 ), false );
 		}
 	}
 
@@ -872,7 +874,7 @@ final class Nature_Observations_Cache {
 	 * @return array
 	 */
 	private static function cache_keys() {
-		$keys = get_option( NATURE_OBSERVATIONS_CACHE_KEYS_OPTION, array() );
+		$keys = get_option( NATURE_SHOWCASE_FOR_INATURALIST_CACHE_KEYS_OPTION, array() );
 
 		return is_array( $keys ) ? array_values( array_filter( array_map( 'sanitize_key', $keys ) ) ) : array();
 	}
@@ -919,12 +921,12 @@ final class Nature_Observations_Cache {
 	 */
 	private static function unpack_error( $error ) {
 		if ( ! is_array( $error ) ) {
-			return new WP_Error( 'nature_observations_cached_error', __( 'Observation data is temporarily unavailable. Please try again soon.', 'nature-observations' ) );
+			return new WP_Error( 'nature_showcase_for_inaturalist_cached_error', __( 'Observation data is temporarily unavailable. Please try again soon.', 'nature-showcase-for-inaturalist' ) );
 		}
 
 		return new WP_Error(
-			sanitize_key( $error['code'] ?? 'nature_observations_cached_error' ),
-			sanitize_text_field( $error['message'] ?? __( 'Observation data is temporarily unavailable. Please try again soon.', 'nature-observations' ) ),
+			sanitize_key( $error['code'] ?? 'nature_showcase_for_inaturalist_cached_error' ),
+			sanitize_text_field( $error['message'] ?? __( 'Observation data is temporarily unavailable. Please try again soon.', 'nature-showcase-for-inaturalist' ) ),
 			$error['data'] ?? null
 		);
 	}
@@ -941,7 +943,7 @@ final class Nature_Observations_Cache {
 			array(
 				'timeout'     => 12,
 				'redirection' => 2,
-				'user-agent'  => 'Nature Observations/' . NATURE_OBSERVATIONS_VERSION . '; ' . home_url( '/' ),
+				'user-agent'  => 'Nature Showcase for iNaturalist by LWangdu/' . NATURE_SHOWCASE_FOR_INATURALIST_VERSION . '; ' . home_url( '/' ),
 			)
 		);
 
@@ -952,10 +954,10 @@ final class Nature_Observations_Cache {
 		$status = wp_remote_retrieve_response_code( $response );
 		if ( 200 !== $status ) {
 			return new WP_Error(
-				'nature_observations_api_error',
+				'nature_showcase_for_inaturalist_api_error',
 				sprintf(
 					/* translators: %d: HTTP status code. */
-					__( 'iNaturalist returned HTTP %d.', 'nature-observations' ),
+					__( 'iNaturalist returned HTTP %d.', 'nature-showcase-for-inaturalist' ),
 					$status
 				)
 			);
@@ -964,7 +966,7 @@ final class Nature_Observations_Cache {
 		$data = json_decode( wp_remote_retrieve_body( $response ), true );
 
 		if ( ! is_array( $data ) ) {
-			return new WP_Error( 'nature_observations_bad_response', __( 'The iNaturalist response was not readable.', 'nature-observations' ) );
+			return new WP_Error( 'nature_showcase_for_inaturalist_bad_response', __( 'The iNaturalist response was not readable.', 'nature-showcase-for-inaturalist' ) );
 		}
 
 		return $data;
@@ -1013,7 +1015,7 @@ final class Nature_Observations_Cache {
 			array(
 				'timeout'     => 12,
 				'redirection' => 2,
-				'user-agent'  => 'Nature Observations/' . NATURE_OBSERVATIONS_VERSION . '; ' . home_url( '/' ),
+				'user-agent'  => 'Nature Showcase for iNaturalist by LWangdu/' . NATURE_SHOWCASE_FOR_INATURALIST_VERSION . '; ' . home_url( '/' ),
 			)
 		);
 
@@ -1024,10 +1026,10 @@ final class Nature_Observations_Cache {
 		$status = wp_remote_retrieve_response_code( $response );
 		if ( 200 !== $status ) {
 			return new WP_Error(
-				'nature_observations_api_error',
+				'nature_showcase_for_inaturalist_api_error',
 				sprintf(
 					/* translators: %d: HTTP status code. */
-					__( 'iNaturalist returned HTTP %d.', 'nature-observations' ),
+					__( 'iNaturalist returned HTTP %d.', 'nature-showcase-for-inaturalist' ),
 					$status
 				)
 			);
@@ -1072,12 +1074,12 @@ final class Nature_Observations_Cache {
 		if ( '' !== $args['user_id'] ) {
 			return sprintf(
 				/* translators: %s: iNaturalist user ID or login. */
-				__( 'iNaturalist user %s', 'nature-observations' ),
+				__( 'iNaturalist user %s', 'nature-showcase-for-inaturalist' ),
 				$args['user_id']
 			);
 		}
 
-		return __( 'iNaturalist', 'nature-observations' );
+		return __( 'iNaturalist', 'nature-showcase-for-inaturalist' );
 	}
 
 	/**
@@ -1088,7 +1090,7 @@ final class Nature_Observations_Cache {
 	 * @return string
 	 */
 	private static function entity_label( $url, $field ) {
-		$cache_key = 'nature_observations_label_' . md5( $url . '|' . $field );
+		$cache_key = 'nature_showcase_for_inaturalist_label_' . md5( $url . '|' . $field );
 		$label     = self::cached_result(
 			$cache_key,
 			DAY_IN_SECONDS,
@@ -1143,15 +1145,15 @@ final class Nature_Observations_Cache {
 	 * @return string
 	 */
 	private static function photo_alt( $common_name, $scientific_name ) {
-		$name = '' !== $common_name && __( 'Unknown species', 'nature-observations' ) !== $common_name ? $common_name : $scientific_name;
+		$name = '' !== $common_name && __( 'Unknown species', 'nature-showcase-for-inaturalist' ) !== $common_name ? $common_name : $scientific_name;
 
 		if ( '' === $name ) {
-			return __( 'iNaturalist observation photo', 'nature-observations' );
+			return __( 'iNaturalist observation photo', 'nature-showcase-for-inaturalist' );
 		}
 
 		return sprintf(
 			/* translators: %s: observation taxon name. */
-			__( 'iNaturalist observation photo of %s', 'nature-observations' ),
+			__( 'iNaturalist observation photo of %s', 'nature-showcase-for-inaturalist' ),
 			$name
 		);
 	}
@@ -1210,13 +1212,13 @@ final class Nature_Observations_Cache {
 	 */
 	private static function taxon_group_label( $iconic_taxon_name ) {
 		$labels = array(
-			'Aves'     => __( 'Birds', 'nature-observations' ),
-			'Mammalia' => __( 'Mammals', 'nature-observations' ),
-			'Plantae'  => __( 'Plants', 'nature-observations' ),
-			'Insecta'  => __( 'Insects', 'nature-observations' ),
-			'Fungi'    => __( 'Fungi', 'nature-observations' ),
-			'Reptilia' => __( 'Reptilia', 'nature-observations' ),
-			'Amphibia' => __( 'Amphibia', 'nature-observations' ),
+			'Aves'     => __( 'Birds', 'nature-showcase-for-inaturalist' ),
+			'Mammalia' => __( 'Mammals', 'nature-showcase-for-inaturalist' ),
+			'Plantae'  => __( 'Plants', 'nature-showcase-for-inaturalist' ),
+			'Insecta'  => __( 'Insects', 'nature-showcase-for-inaturalist' ),
+			'Fungi'    => __( 'Fungi', 'nature-showcase-for-inaturalist' ),
+			'Reptilia' => __( 'Reptilia', 'nature-showcase-for-inaturalist' ),
+			'Amphibia' => __( 'Amphibia', 'nature-showcase-for-inaturalist' ),
 		);
 
 		return sanitize_text_field( $labels[ $iconic_taxon_name ] ?? $iconic_taxon_name );

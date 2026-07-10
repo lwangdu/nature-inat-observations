@@ -1,10 +1,10 @@
-=== Nature Observations ===
+=== Nature Showcase for iNaturalist by LWangdu ===
 Contributors: lobsangw
 Tags: inaturalist, observations, biodiversity, maps, block
 Requires at least: 6.5
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 0.2.6
+Stable tag: 0.2.7
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,9 @@ Display cached nature observations in WordPress with block editor support, obser
 
 == Description ==
 
-Nature Observations displays iNaturalist observations on WordPress sites. It provides dynamic blocks for an observation grid and a compact observation map.
+Nature Showcase for iNaturalist by LWangdu displays iNaturalist observations on WordPress sites. It provides dynamic blocks for an observation grid and a compact observation map.
+
+This plugin is an independent WordPress plugin that displays publicly available observation data from iNaturalist. It is not affiliated with, endorsed by, or sponsored by iNaturalist.
 
 Features include:
 
@@ -31,10 +33,10 @@ Features include:
 
 = Third-party services =
 
-This plugin connects to third-party services to display observation and map data.
+This plugin connects to third-party services to display observation and map data. These requests happen when a visitor views a page containing one of the plugin blocks, when an editor previews the block in the editor, when an administrator uses the CSV export, or when WordPress runs the plugin cache warmer.
 
-* iNaturalist API and observation media: The plugin sends the configured source values, such as project slug, project ID, place ID, user ID/login, page number, per-page count, and selected taxon filter, to the iNaturalist API. It uses these requests to retrieve observations, source statistics, project data, place data, place boundary geometry, and observation photo URLs. Front-end pages may load observation images from the image URLs returned by iNaturalist, including iNaturalist/Open Data storage URLs. No WordPress user account data is intentionally sent by the plugin. iNaturalist API documentation: https://api.inaturalist.org/v1/docs/ Terms: https://www.inaturalist.org/terms Privacy policy: https://www.inaturalist.org/privacy
-* Esri ArcGIS World Topographic Map tiles: The map view loads terrain/topographic map tiles from Esri ArcGIS. Browser requests to Esri include normal web request data such as IP address and user agent. Esri terms: https://www.esri.com/en-us/legal/terms/full-master-agreement Privacy statement: https://www.esri.com/en-us/privacy/overview
+* iNaturalist API and observation media: The plugin sends the configured iNaturalist source values, such as project slug, project ID, place ID, user ID/login, page number, per-page count, and selected taxon filter, to the public iNaturalist API. It uses these requests to retrieve observations, source statistics, project data, place data, place boundary geometry, and observation photo URLs. Front-end pages may load observation images from the image URLs returned by iNaturalist, including iNaturalist/Open Data storage URLs. No WordPress user account data is intentionally sent by the plugin. iNaturalist API documentation: https://api.inaturalist.org/v1/docs/ Terms: https://www.inaturalist.org/terms Privacy policy: https://www.inaturalist.org/privacy
+* Esri ArcGIS World Topographic Map tiles: The map block loads terrain/topographic map tiles from Esri ArcGIS Online when a visitor or editor views the map block. Browser requests to Esri include normal web request data such as IP address, user agent, referring page, and requested map tile coordinates. Esri terms: https://www.esri.com/en-us/legal/terms/full-master-agreement Privacy statement: https://www.esri.com/en-us/privacy/overview
 
 = Bundled third-party libraries =
 
@@ -44,7 +46,7 @@ This plugin bundles Leaflet 1.9.4 for the interactive map. Leaflet is licensed u
 
 1. Upload the plugin folder to the /wp-content/plugins/ directory, or install it through the WordPress Plugins screen.
 2. Activate the plugin through the Plugins screen in WordPress.
-3. Go to Settings > Nature Observations to configure default source settings.
+3. Go to Settings > Nature Showcase for iNaturalist by LWangdu to configure default source settings.
 4. Add the iNaturalist Observations block or iNaturalist Observations Map block to a page.
 
 The plugin creates draft starter iNaturalist Observations and Map of Observations pages on activation if those pages do not already exist. Review and publish those pages when ready.
@@ -65,6 +67,10 @@ The plugin caches API responses in WordPress transients to reduce page-load time
 2. Observation map with reserve boundary, pins, and recent observation thumbnails.
 
 == Changelog ==
+
+= 0.2.7 =
+* Renamed the plugin to Nature Showcase for iNaturalist by LWangdu for WordPress.org review clarity.
+* Updated plugin slug, text domain, and third-party service disclosure for iNaturalist and Esri ArcGIS Online.
 
 = 0.2.6 =
 * Stream admin CSV exports for large iNaturalist datasets and avoid HTML error output in CSV files.
